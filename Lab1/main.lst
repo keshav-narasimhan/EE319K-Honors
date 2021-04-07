@@ -1,0 +1,275 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ;****************** main.s ***************
+    2 00000000         ; Program initially written by: Yerraballi and Valvano
+    3 00000000         ; Author: Keshav Narasimhan
+    4 00000000         ; Date Created: 1/15/2018 
+    5 00000000         ; Last Modified: 1/17/2021 
+    6 00000000         ; Brief description of the program: Solution to Lab1
+    7 00000000         ; The objective of this system is to implement odd-bit c
+                       ounting system
+    8 00000000         ; Hardware connections: 
+    9 00000000         ;  Output is positive logic, 1 turns on the LED, 0 turns
+                        off the LED
+   10 00000000         ;  Inputs are negative logic, meaning switch not pressed
+                        is 1, pressed is 0
+   11 00000000         ;    PE0 is an input 
+   12 00000000         ;    PE1 is an input 
+   13 00000000         ;    PE2 is an input 
+   14 00000000         ;    PE4 is the output
+   15 00000000         ; Overall goal: 
+   16 00000000         ;   Make the output 1 if there is an even number of swit
+                       ches pressed, 
+   17 00000000         ;     otherwise make the output 0
+   18 00000000         
+   19 00000000         ; The specific operation of this system 
+   20 00000000         ;   Initialize Port E to make PE0,PE1,PE2 inputs and PE4
+                        an output
+   21 00000000         ;   Over and over, read the inputs, calculate the result
+                        and set the output
+   22 00000000         ; PE2  PE1 PE0  | PE4
+   23 00000000         ; 0    0    0   |  0    3 switches pressed, odd 
+   24 00000000         ; 0    0    1   |  1    2 switches pressed, even
+   25 00000000         ; 0    1    0   |  1    2 switches pressed, even
+   26 00000000         ; 0    1    1   |  0    1 switch pressed, odd
+   27 00000000         ; 1    0    0   |  1    2 switches pressed, even
+   28 00000000         ; 1    0    1   |  0    1 switch pressed, odd
+   29 00000000         ; 1    1    0   |  0    1 switch pressed, odd
+   30 00000000         ; 1    1    1   |  1    no switches pressed, even
+   31 00000000         ;There are 8 valid output values for Port E: 0x00,0x11,0
+                       x12,0x03,0x14,0x05,0x06, and 0x17. 
+   32 00000000         
+   33 00000000         ; NOTE: Do not use any conditional branches in your solu
+                       tion. 
+   34 00000000         ;       We want you to think of the solution in terms of
+                        logical and shift operations
+   35 00000000         
+   36 00000000 400243FC 
+                       GPIO_PORTE_DATA_R
+                               EQU              0x400243FC
+   37 00000000 40024400 
+                       GPIO_PORTE_DIR_R
+                               EQU              0x40024400
+   38 00000000 4002451C 
+                       GPIO_PORTE_DEN_R
+                               EQU              0x4002451C
+   39 00000000 400FE608 
+                       SYSCTL_RCGCGPIO_R
+                               EQU              0x400FE608
+   40 00000000         
+   41 00000000                 THUMB
+   42 00000000                 AREA             DATA, ALIGN=2
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+   43 00000000         ;global variables go here
+   44 00000000                 ALIGN
+   45 00000000                 AREA             |.text|, CODE, READONLY, ALIGN=
+2
+   46 00000000                 EXPORT           Start
+   47 00000000         Start
+   48 00000000         ;code to run once that initializes PE4,PE2,PE1,PE0
+   49 00000000         
+   50 00000000         ; activates Clock E
+   51 00000000 4816            LDR              R0,=SYSCTL_RCGCGPIO_R
+   52 00000002 6801            LDR              R1,[R0]
+   53 00000004 F041 0110       ORR              R1,#0x10
+   54 00000008 6001            STR              R1,[R0]
+   55 0000000A         
+   56 0000000A         ; wait for 2 clock cycles to stabilize clock
+   57 0000000A BF00            NOP
+   58 0000000C BF00            NOP
+   59 0000000E         
+   60 0000000E         ; specify which pins are inputs/outputs
+   61 0000000E         ; PE0, PE1, PE2 = inputs
+   62 0000000E         ; PE4 = output
+   63 0000000E 4814            LDR              R0,=GPIO_PORTE_DIR_R
+   64 00000010 6801            LDR              R1,[R0]
+   65 00000012 F021 0107       BIC              R1, #0x07   ; makes PE0, PE1, a
+                                                            nd PE2 inputs (frie
+                                                            ndly)
+   66 00000016 F041 0110       ORR              R1, #0x10   ; makes PE4 output 
+                                                            (friendly)
+   67 0000001A 6001            STR              R1,[R0]
+   68 0000001C         
+   69 0000001C         ; specify which pins are enabled as data pins
+   70 0000001C         ; PE0, PE1, PE2, PE4 = data pins
+   71 0000001C 4811            LDR              R0,=GPIO_PORTE_DEN_R
+   72 0000001E 6801            LDR              R1,[R0]
+   73 00000020 F041 0117       ORR              R1,#0x17    ; bits 0, 1, 2, 4 a
+                                                            re enabled (friendl
+                                                            y)
+   74 00000024 6001            STR              R1,[R0]
+   75 00000026         
+   76 00000026         ; load R0 with address of PORT E DATA Register
+   77 00000026 4810            LDR              R0,=GPIO_PORTE_DATA_R
+   78 00000028         loop
+   79 00000028         ;code that runs over and over
+   80 00000028         
+   81 00000028         ; PF0
+   82 00000028 6801            LDR              R1,[R0]     ; load data into R1
+                                                            
+   83 0000002A F001 0101       AND              R1,#0x1     ; PE0 info is in bi
+                                                            t 0, so we'll check
+                                                             if it is a 0/1 wit
+                                                            h a mask
+   84 0000002E         
+   85 0000002E         ; PF1
+   86 0000002E 6802            LDR              R2,[R0]     ; load data into R2
+                                                            
+   87 00000030 EA4F 0252       LSR              R2,#0x1     ; PE1 info is in bi
+                                                            t 1, so we'll shift
+                                                             right once to make
+                                                             it the LSB
+
+
+
+ARM Macro Assembler    Page 3 
+
+
+   88 00000034 F002 0201       AND              R2,#0x1     ; we'll check if bi
+                                                            t 1 is a 0/1 with a
+                                                             mask
+   89 00000038         
+   90 00000038         ; PF2
+   91 00000038 6803            LDR              R3,[R0]     ; load data into R3
+                                                            
+   92 0000003A EA4F 0393       LSR              R3,#0x2     ; PE2 info is in bi
+                                                            t 2, so we'll shift
+                                                             right twice to mak
+                                                            e it the LSB
+   93 0000003E F003 0301       AND              R3,#0x1     ; we'll check if bi
+                                                            t 1 is a 0/1 with a
+                                                             mask
+   94 00000042         
+   95 00000042         ; R1 = PE0, R2 = PE1, R3 = PE2
+   96 00000042         ; we can use XOR logic in order to determine if output (
+                       PE4) should be high/low
+   97 00000042 EA81 0102       EOR              R1, R2
+   98 00000046 EA81 0103       EOR              R1, R3
+   99 0000004A         
+  100 0000004A         ; whether the output should be 0/1 is stored in R4 due t
+                       o the EOR operations
+  101 0000004A         ; shift this value in order to match it up with bit 4
+  102 0000004A EA4F 1101       LSL              R1, #0x4
+  103 0000004E 6802            LDR              R2, [R0]
+  104 00000050 F002 020F       AND              R2, #0x0F   ; preserves bits 0,
+                                                            1,2 original values
+                                                            
+  105 00000054 440A            ADD              R2, R1      ; changes bit 4 onl
+                                                            y by setting it as 
+                                                            whatever stored in 
+                                                            R1
+  106 00000056 6002            STR              R2, [R0]    ; store it back to 
+                                                            see resulting outpu
+                                                            t
+  107 00000058 E7E6            B                loop
+  108 0000005A         
+  109 0000005A         
+  110 0000005A 00 00           ALIGN                        ; make sure the end
+                                                             of this section is
+                                                             aligned
+  111 0000005C                 END                          ; end of file
+              400FE608 
+              40024400 
+              4002451C 
+              400243FC 
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4 --apcs=interw
+ork --depend=.\main.d -o.\main.o -I.\RTE\_Lab1 -IC:\Users\knkes\AppData\Local\A
+rm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include -IC:\Users\knkes\AppData\Local\Arm\
+Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123 --predefine="__EVAL SETA 1" --
+predefine="__UVISION_VERSION SETA 533" --predefine="_RTE_ SETA 1" --predefine="
+TM4C123GH6PM SETA 1" --predefine="_RTE_ SETA 1" --list=.\main.lst main.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+DATA 00000000
+
+Symbol: DATA
+   Definitions
+      At line 42 in file main.s
+   Uses
+      None
+Comment: DATA unused
+1 symbol
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+.text 00000000
+
+Symbol: .text
+   Definitions
+      At line 45 in file main.s
+   Uses
+      None
+Comment: .text unused
+Start 00000000
+
+Symbol: Start
+   Definitions
+      At line 47 in file main.s
+   Uses
+      At line 46 in file main.s
+Comment: Start used once
+loop 00000028
+
+Symbol: loop
+   Definitions
+      At line 78 in file main.s
+   Uses
+      At line 107 in file main.s
+Comment: loop used once
+3 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+GPIO_PORTE_DATA_R 400243FC
+
+Symbol: GPIO_PORTE_DATA_R
+   Definitions
+      At line 36 in file main.s
+   Uses
+      At line 77 in file main.s
+Comment: GPIO_PORTE_DATA_R used once
+GPIO_PORTE_DEN_R 4002451C
+
+Symbol: GPIO_PORTE_DEN_R
+   Definitions
+      At line 38 in file main.s
+   Uses
+      At line 71 in file main.s
+Comment: GPIO_PORTE_DEN_R used once
+GPIO_PORTE_DIR_R 40024400
+
+Symbol: GPIO_PORTE_DIR_R
+   Definitions
+      At line 37 in file main.s
+   Uses
+      At line 63 in file main.s
+Comment: GPIO_PORTE_DIR_R used once
+SYSCTL_RCGCGPIO_R 400FE608
+
+Symbol: SYSCTL_RCGCGPIO_R
+   Definitions
+      At line 39 in file main.s
+   Uses
+      At line 51 in file main.s
+Comment: SYSCTL_RCGCGPIO_R used once
+4 symbols
+344 symbols in table
