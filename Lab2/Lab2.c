@@ -4,7 +4,7 @@
 // Last Modified: 1/17/2021 
 // Put your name and EID in the next two line
 char Name[] = "Keshav Narasimhan";
-char EID[] = "kn9558";
+char EID[] = "______";
 // Brief description of the Lab: 
 // An embedded system is capturing temperature data from a
 // sensor and performing analysis on the captured data.
