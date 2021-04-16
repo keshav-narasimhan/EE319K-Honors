@@ -33,13 +33,13 @@ char EID[] = "______";
 // Notes: you do not need to implement rounding
 uint16_t Average(const uint16_t Data[],const uint32_t N){
 		
-		uint16_t dist_sum = 0;						// 16 bit, unsigned int var that will hold the sum of all distance measurements in Data array
-		for (int a = 0; a < N; a++)				// loop through all N elements in array
-		{
-				dist_sum += Data[a];					// add all distance measurements in array and hold sum in dist_sum (mm)
-		}
-		uint16_t dist_avg = dist_sum/N;		// define new 16 bit, unsigned int var that will compute the average distance
-    return dist_avg;									// return the average distance by returning dist_avg (mm)
+	uint16_t dist_sum = 0;						// 16 bit, unsigned int var that will hold the sum of all distance measurements in Data array
+	for (int a = 0; a < N; a++)				// loop through all N elements in array
+	{
+		dist_sum += Data[a];					// add all distance measurements in array and hold sum in dist_sum (mm)
+	}
+	uint16_t dist_avg = dist_sum/N;		// define new 16 bit, unsigned int var that will compute the average distance
+   	return dist_avg;									// return the average distance by returning dist_avg (mm)
 
 }
 
@@ -49,9 +49,9 @@ uint16_t Average(const uint16_t Data[],const uint32_t N){
 // Notes: you do not need to implement rounding
 int16_t FtoC(int16_t const TinF){
 	
-		int16_t deg_cel = TinF - 32;		// define new 16 bit int, deg_cel, that will compute the Celsius Temp.
-		deg_cel = deg_cel * 5/9;				// use formula and compute the Celsius Temp. using the input Fahrenheit Temp.
-		return deg_cel;									// return deg_cel (Celsius Temp.) in degrees Celsius
+	int16_t deg_cel = TinF - 32;		// define new 16 bit int, deg_cel, that will compute the Celsius Temp.
+	deg_cel = deg_cel * 5/9;				// use formula and compute the Celsius Temp. using the input Fahrenheit Temp.
+	return deg_cel;									// return deg_cel (Celsius Temp.) in degrees Celsius
 
 }
 
@@ -62,14 +62,14 @@ int16_t FtoC(int16_t const TinF){
 // Output: true if monotonic increasing, false if nonmonotonic
 int IsMonotonic(uint16_t const Data[], int32_t const N){
 
-		for (int a = 0; a < N - 1; a++)				// loop through N - 1 elements in Data array to compare each data pt. to see if increasing
+	for (int a = 0; a < N - 1; a++)				// loop through N - 1 elements in Data array to compare each data pt. to see if increasing
+	{
+		if (Data[a + 1] < Data[a])				// if next distance is less than current distance measurement, we know it isn't strictly increasing
 		{
-				if (Data[a + 1] < Data[a])				// if next distance is less than current distance measurement, we know it isn't strictly increasing
-				{
-						return False;									// since not strictly increasing, return False
-				}
+			return False;									// since not strictly increasing, return False
 		}
-		return True;													// reached end of array without finding any decreasing distance measurements, therefore return True
+	}
+	return True;													// reached end of array without finding any decreasing distance measurements, therefore return True
 
 }
 
