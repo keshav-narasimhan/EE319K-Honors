@@ -1,0 +1,43 @@
+Dependencies for Project 'Lab6', Target 'Lab6': (DO NOT MODIFY !)
+CompilerVersion: 5060960::V5.06 update 7 (build 960)::.\ARMCC
+F (.\startup.s)(0x56F190AE)(--cpu Cortex-M4 --pd "__EVAL SETA 1" -g --apcs=interwork -I.\RTE\_Lab6-IC:\Users\knkes\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\knkes\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123--pd "__UVISION_VERSION SETA 533" --pd "_RTE_ SETA 1" --pd "TM4C123GH6PM SETA 1" --pd "_RTE_ SETA 1"--list .\startup.lst --xref -o .\startup.o --depend .\startup.d)
+F (.\Sound.c)(0x605CCA74)(-c --cpu Cortex-M4 -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I .. -I ..\..\.. --C99-I.\RTE\_Lab6-IC:\Users\knkes\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\knkes\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="533" -D_RTE_ -DTM4C123GH6PM -D_RTE_ -Drvmdk -DPART_LM4F120H5QR-o .\sound.o --omf_browse .\sound.crf --depend .\sound.d)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E8EF392)
+I (DAC.h)(0x605CC9F4)
+I (../inc/tm4c123gh6pm.h)(0x5388C2DA)
+F (.\Lab6.c)(0x605CD5F7)(-c --cpu Cortex-M4 -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I .. -I ..\..\.. --C99-I.\RTE\_Lab6-IC:\Users\knkes\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\knkes\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="533" -D_RTE_ -DTM4C123GH6PM -D_RTE_ -Drvmdk -DPART_LM4F120H5QR-o .\lab6.o --omf_browse .\lab6.crf --depend .\lab6.d)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E8EF392)
+I (../inc/tm4c123gh6pm.h)(0x5388C2DA)
+I (../inc/LaunchPad.h)(0x5FF5FBA8)
+I (../inc/CortexM.h)(0x5FF5FBA8)
+I (Sound.h)(0x605CCA6B)
+I (Key.h)(0x605CCA44)
+I (Music.h)(0x605BC128)
+I (TExaS.h)(0x5FF5F4A4)
+F (.\Key.c)(0x605CCA53)(-c --cpu Cortex-M4 -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I .. -I ..\..\.. --C99-I.\RTE\_Lab6-IC:\Users\knkes\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\knkes\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="533" -D_RTE_ -DTM4C123GH6PM -D_RTE_ -Drvmdk -DPART_LM4F120H5QR-o .\key.o --omf_browse .\key.crf --depend .\key.d)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E8EF392)
+I (../inc/tm4c123gh6pm.h)(0x5388C2DA)
+I (Key.h)(0x605CCA44)
+F (.\Music.c)(0x605C1F64)(-c --cpu Cortex-M4 -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I .. -I ..\..\.. --C99-I.\RTE\_Lab6-IC:\Users\knkes\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\knkes\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="533" -D_RTE_ -DTM4C123GH6PM -D_RTE_ -Drvmdk -DPART_LM4F120H5QR-o .\music.o --omf_browse .\music.crf --depend .\music.d)
+I (Sound.h)(0x605CCA6B)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E8EF392)
+I (Music.h)(0x605BC128)
+I (DAC.h)(0x605CC9F4)
+I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5E8EF392)
+I (../inc/tm4c123gh6pm.h)(0x5388C2DA)
+F (.\DAC.c)(0x605CCA82)(-c --cpu Cortex-M4 -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I .. -I ..\..\.. --C99-I.\RTE\_Lab6-IC:\Users\knkes\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\knkes\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="533" -D_RTE_ -DTM4C123GH6PM -D_RTE_ -Drvmdk -DPART_LM4F120H5QR-o .\dac.o --omf_browse .\dac.crf --depend .\dac.d)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E8EF392)
+I (../inc/tm4c123gh6pm.h)(0x5388C2DA)
+I (DAC.h)(0x605CC9F4)
+F (..\inc\LaunchPad.c)(0x5FF5FBA8)(-c --cpu Cortex-M4 -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I .. -I ..\..\.. --C99-I.\RTE\_Lab6-IC:\Users\knkes\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\knkes\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="533" -D_RTE_ -DTM4C123GH6PM -D_RTE_ -Drvmdk -DPART_LM4F120H5QR-o .\launchpad.o --omf_browse .\launchpad.crf --depend .\launchpad.d)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E8EF392)
+I (..\inc\../inc/LaunchPad.h)(0x5FF5FBA8)
+I (..\inc\../inc/tm4c123gh6pm.h)(0x5388C2DA)
+I (..\inc\../inc/CortexM.h)(0x5FF5FBA8)
+F (..\inc\CortexM.c)(0x5FF5FBA8)(-c --cpu Cortex-M4 -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I .. -I ..\..\.. --C99-I.\RTE\_Lab6-IC:\Users\knkes\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\knkes\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="533" -D_RTE_ -DTM4C123GH6PM -D_RTE_ -Drvmdk -DPART_LM4F120H5QR-o .\cortexm.o --omf_browse .\cortexm.crf --depend .\cortexm.d)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E8EF392)
+F (.\Timer.c)(0x605C1F62)(-c --cpu Cortex-M4 -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I .. -I ..\..\.. --C99-I.\RTE\_Lab6-IC:\Users\knkes\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\knkes\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="533" -D_RTE_ -DTM4C123GH6PM -D_RTE_ -Drvmdk -DPART_LM4F120H5QR-o .\timer.o --omf_browse .\timer.crf --depend .\timer.d)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E8EF392)
+I (Music.h)(0x605BC128)
+I (..//inc//tm4c123gh6pm.h)(0x5388C2DA)
+F (.\texas.o)(0x56F190AE)()
